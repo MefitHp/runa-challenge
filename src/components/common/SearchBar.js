@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-
-const SearchBar = () => {
+import { withRouter } from "react-router-dom";
+const SearchBar = props => {
   let [searchValue, setSearchValue] = useState("");
   return (
     <div className="field has-addons ">
@@ -9,13 +9,14 @@ const SearchBar = () => {
           id="searchPlayer"
           onSubmit={e => {
             e.preventDefault();
-            console.log("Submitted");
+            if (searchValue === "") return;
+            props.history.push(`/user/${searchValue}`);
           }}
         >
           <input
             value={searchValue}
             onChange={event => setSearchValue(event.target.value)}
-            className="input"
+            className="input is-large"
             type="text"
             placeholder="Find a player, for example: Ninja"
           />
@@ -25,7 +26,7 @@ const SearchBar = () => {
         <button
           type="submit"
           form="searchPlayer"
-          className="button is-dark has-text-white"
+          className="button is-dark has-text-white is-large"
         >
           <i className="fas fa-search" />
         </button>
@@ -34,4 +35,4 @@ const SearchBar = () => {
   );
 };
 
-export default SearchBar;
+export default withRouter(SearchBar);
