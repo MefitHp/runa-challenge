@@ -4,6 +4,7 @@ import Main from "./components/Main/Main";
 import User from "./pages/User";
 import News from "./pages/News";
 import Store from "./pages/Store";
+import MyProfile from "./pages/MyProfile";
 
 const Routes = () => (
   <Router>
@@ -12,6 +13,7 @@ const Routes = () => (
       <Route path="/user" component={User} />
       <Route path="/news" component={News} />
       <Route path="/store" component={Store} />
+      <Route path="/profile" component={MyProfile} />
     </Switch>
   </Router>
 );

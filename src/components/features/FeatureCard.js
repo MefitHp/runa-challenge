@@ -6,7 +6,7 @@ import styled from "@emotion/styled";
 const FeatureCard = ({ feature = {} }) => {
   const { title, src, description, url } = feature;
   return (
-    <Box width={[1, 1, 1 / 2]} p={3} style={{ flex: "1 1 auto" }}>
+    <Box width={[1, 1, 1 / 2]} p={3}>
       <Link to={url}>
         <CardContainer>
           <Figure className="image is-4by3" src={src}>

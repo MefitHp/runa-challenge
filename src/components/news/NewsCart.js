@@ -4,14 +4,9 @@ import styled from "@emotion/styled";
 import { handleNewsBadge } from "./utils";
 import moment from "moment";
 
-const NewsCart = ({ newData }) => {
-  const {
-    body,
-    image,
-    title,
-    time,
-    meta: { adSpace }
-  } = newData;
+const NewsCart = ({ newData = {} }) => {
+  const { body, image, title, time } = newData;
+  const adSpace = newData && newData.meta && newData.meta.adSpace;
   return (
     <Box width={[1, 1 / 2, 1 / 4]} p={3}>
       <div

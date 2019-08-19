@@ -7,6 +7,8 @@ export const FETCH_SUCCESS = "fortnite-stats/fetch/SUCCESS";
 export const FETCH_ERROR = "fortnite-stats/fetch/ERROR";
 export const GET_NEWS = "fortnite-stats/news/GET_NEWS";
 export const GET_STORE_ITEMS = "fortnite-stats/news/GET_STORE_ITEMS";
+export const GET_USER_DATA_SUCCESS =
+  "fortnite-stats/user/GET_USER_DATA_SUCCESS";
 
 const initState = {
   data: [],
@@ -24,14 +26,7 @@ export default function reducer(state = initState || {}, action = {}) {
         progress: action.payload
       };
 
-    case GET_USER_DATA:
-      return {
-        ...state,
-        data: action.payload.response.data
-      };
-
     case FETCH_SUCCESS:
-      console.log("ACTION STATE", action.payload);
       return {
         ...state,
         progress: "success",
@@ -46,7 +41,14 @@ export default function reducer(state = initState || {}, action = {}) {
     case SET_UID:
       return {
         ...state,
+        progress: "success",
         uid: action.payload
+      };
+    case GET_USER_DATA_SUCCESS:
+      return {
+        ...state,
+        progress: "success",
+        data: action.payload
       };
     default:
       return state;
@@ -59,7 +61,12 @@ export const searchUser = searchInput => {
     payload: searchInput
   };
 };
-
+export const getUserData = uid => {
+  return {
+    type: GET_USER_DATA,
+    payload: uid
+  };
+};
 export const fetchError = payload => {
   return {
     type: FETCH_ERROR,
@@ -69,6 +76,12 @@ export const fetchError = payload => {
 export const fetchUserSuccess = payload => {
   return {
     type: FETCH_SUCCESS,
+    payload: payload
+  };
+};
+export const getUserDataSuccess = payload => {
+  return {
+    type: GET_USER_DATA_SUCCESS,
     payload: payload
   };
 };

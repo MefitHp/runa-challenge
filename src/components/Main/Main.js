@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../Layout/Layout";
-import SearchBar from "../common/SearchBar";
+// import SearchBar from "../common/SearchBar";
 import Features from "../features/Features";
 
 const Main = () => {
@@ -8,7 +8,7 @@ const Main = () => {
     <Layout>
       <section className="section">
         <div className="container">
-          <SearchBar />
+          {/* <SearchBar /> */}
           <Features />
         </div>
       </section>

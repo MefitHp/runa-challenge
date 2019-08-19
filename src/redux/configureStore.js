@@ -4,11 +4,17 @@ import main from "./ducks/main.ducks";
 import {
   epicSeachUser,
   epicGetNews,
-  epicGetStoreItems
+  epicGetStoreItems,
+  epicSearchUserData
 } from "../epics/main.epics";
 
 export default function configureStore() {
-  const rootEpic = combineEpics(epicSeachUser, epicGetNews, epicGetStoreItems);
+  const rootEpic = combineEpics(
+    epicSeachUser,
+    epicGetNews,
+    epicGetStoreItems,
+    epicSearchUserData
+  );
 
   const epicMiddleware = createEpicMiddleware();
   const rootReducer = combineReducers({

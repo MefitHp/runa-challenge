@@ -1,5 +1,5 @@
 import React from "react";
-export const handleNewsBadge = status => {
+export const handleNewsBadge = (status = null) => {
   switch (status) {
     case "NEW!":
       return <span className="tag is-danger">{status}</span>;

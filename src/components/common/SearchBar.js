@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 const SearchBar = props => {
   let [searchValue, setSearchValue] = useState("");
   return (
-    <div className="field has-addons ">
+    <div className="field has-addons" style={{ width: "100%" }}>
       <div className="control" style={{ width: "100%" }}>
         <form
           id="searchPlayer"

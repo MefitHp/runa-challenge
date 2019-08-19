@@ -5,10 +5,11 @@ import { Flex } from "rebass";
 import NewsCart from "./NewsCart";
 import FeatureHeader from "../common/FeatureHeader";
 
-const NewsMain = ({ getNews, news = [] }) => {
+const NewsMain = ({ getNews, news = [], progress }) => {
   useEffect(() => {
     getNews();
   }, [getNews]);
+
   return (
     <div className="container">
       <FeatureHeader
@@ -16,16 +17,31 @@ const NewsMain = ({ getNews, news = [] }) => {
         description=" Discover whats new in this season!"
       />
       <Flex flexWrap="wrap">
-        {news &&
-          news.map((newData, index) => (
-            <NewsCart newData={newData} key={index} />
-          ))}
+        {progress === "loading" ? (
+          <Flex
+            m={4}
+            p={4}
+            justifyContent="center"
+            style={{ backgroundColor: "#fff", width: "100%" }}
+          >
+            <h3 className="has-text-centered is-size-3 has-text-weight-bold	">
+              Loading..
+            </h3>
+          </Flex>
+        ) : (
+          ""
+        )}
+
+        {news && news.length && progress === "success"
+          ? news.map((newData, index) => (
+              <NewsCart newData={newData} key={index} />
+            ))
+          : ""}
       </Flex>
     </div>
   );
 };
 const mapStateToProps = state => {
-  console.log(state);
   return { news: state.main.data, progress: state.main.progress };
 };
 export default connect(

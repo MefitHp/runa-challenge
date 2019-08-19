@@ -6,7 +6,9 @@ import {
   fetchStoreItemsSuccess,
   setUid,
   fetchError,
-  GET_STORE_ITEMS
+  GET_STORE_ITEMS,
+  GET_USER_DATA,
+  getUserDataSuccess
 } from "../redux/ducks/main.ducks";
 import { ajax } from "rxjs/ajax";
 import { catchError, map, switchMap } from "rxjs/operators";
@@ -30,8 +32,35 @@ export function epicSeachUser(action$) {
           headers: headers
         }).pipe(
           map(apiRes => {
-            const { uid } = apiRes.response.data;
-            return setUid(uid);
+            const data = apiRes.response.data;
+            return setUid(data);
+          }),
+          catchError(err => {
+            return of(fetchError(err));
+          })
+        )
+      );
+    }) //finish swithcMap
+  );
+}
+
+export function epicSearchUserData(action$) {
+  return action$.pipe(
+    ofType(GET_USER_DATA),
+    switchMap(action => {
+      const { payload } = action;
+      return concat(
+        of(setProgress("loading")),
+        ajax({
+          url: `${BASE_URL}/prod09/users/public/br_stats_v2?user_id=${encodeURIComponent(
+            payload
+          )}`,
+          method: "GET",
+          headers: headers
+        }).pipe(
+          map(apiRes => {
+            const data = apiRes.response.data;
+            return getUserDataSuccess(data);
           }),
           catchError(err => {
             return of(fetchError(err));
@@ -54,7 +83,6 @@ export function epicGetNews(action$) {
           headers
         }).pipe(
           map(res => {
-            console.log(res);
             return fetchNewsSuccess(res);
           })
         )
@@ -75,7 +103,6 @@ export function epicGetStoreItems(action$) {
           headers
         }).pipe(
           map(res => {
-            console.log(res);
             return fetchStoreItemsSuccess(res);
           })
         )
